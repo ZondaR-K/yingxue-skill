@@ -1,0 +1,7 @@
+item_id,condition,rater_id,humor,naturalness,appropriateness
+sample-a,baseline,judge-01,3,4,5
+sample-a,simple_prompt,judge-01,4,4,5
+sample-a,skill,judge-01,4,5,5
+sample-b,baseline,judge-02,2,3,4
+sample-b,simple_prompt,judge-02,3,4,4
+sample-b,skill,judge-02,4,4,4
