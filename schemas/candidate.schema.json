@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "YingXue candidate batch",
+  "type": "object",
+  "required": ["task_id", "context", "candidates"],
+  "properties": {
+    "task_id": {"type": "string", "minLength": 1},
+    "context": {"type": "string"},
+    "candidates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "mechanism", "text"],
+        "properties": {
+          "id": {"type": "string"},
+          "mechanism": {"type": "string", "enum": ["incongruity", "benign_violation", "semantic_reframe", "mock_epic", "running_gag", "self_deprecation"]},
+          "text": {"type": "string", "minLength": 1},
+          "notes": {"type": "string"}
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
