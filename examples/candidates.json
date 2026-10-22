@@ -1,0 +1,21 @@
+{
+  "task_id": "demo-001",
+  "context": "朋友周末忘记回消息，用轻松自嘲的方式调侃，不攻击对方",
+  "candidates": [
+    {
+      "id": "a",
+      "mechanism": "mock_epic",
+      "text": "我给你发的消息已经进入考古阶段，专家正在研究它属于哪个朝代。"
+    },
+    {
+      "id": "b",
+      "mechanism": "self_deprecation",
+      "text": "你回我消息的时候，我差点以为手机启动了年度回忆功能。"
+    },
+    {
+      "id": "c",
+      "mechanism": "semantic_reframe",
+      "text": "看来这不是已读不回，是跨季度通信。"
+    }
+  ]
+}
