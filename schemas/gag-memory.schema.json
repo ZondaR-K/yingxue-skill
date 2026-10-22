@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Recurring gag memory",
+  "type": "object",
+  "required": ["persona_id", "invariant", "callbacks"],
+  "properties": {
+    "persona_id": {"type": "string"},
+    "invariant": {"type": "string"},
+    "boundaries": {"type": "array", "items": {"type": "string"}},
+    "callbacks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["scene", "variation"],
+        "properties": {
+          "scene": {"type": "string"},
+          "variation": {"type": "string"}
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
