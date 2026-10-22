@@ -1,65 +1,134 @@
 # 颖学 Skill
 
-**An Agent Skill for Chinese Humor Generation, Analysis & Practice**
+**让 AI 学会一本正经地胡说八道。**
 
 > 正经研究幽默，严肃对待胡说八道。
 
-这是一套适用于 Claude Code、Codex 等兼容 Agent Skills 工作流的中文幽默创作方案。侧重**语境理解 → 机制规划 → 多候选生成 → 批评修订 → 人类反馈**；同时提供标准化数据格式、离线校验和评测汇总工具。
+颖学是一套中文幽默创作与练习 Skill。可以用来写有趣的聊天回复、改写文字、创作搞笑故事，也可以帮你分析笑点、练习反转、自嘲和 Running Gag。
 
-**功能边界：**这是可阅读的指令 Skill 与轻量 Python 工具链；没有训练模型参数，没有集成外部推理 API，没有经过证明的幽默胜率，也没有官方授权或代言关系。
+它整合了预期违背、语义转换、夸张反差、良性冒犯等幽默技巧，并提供创作、分析、改写和陪练流程。
 
-## Quick start
+## 🎭 能拿来干什么？
 
-1. 将仓库目录放到所用 Agent 产品支持的 Skill 路径（不同产品路径和发现机制可能不同）。
-2. 让智能体读取 `SKILL.md`，输入如：`把“我今天又加班了”改写成两条一本正经的荒诞幽默，避免讽刺具体同事。`
-3. 若在本机校验项目：
+| 场景 | 你可以这样说 |
+| --- | --- |
+| 微信聊天 | “朋友问我怎么天天加班，帮我想一句好笑又不油腻的回复。” |
+| 幽默改写 | “把‘今天又赖床了’改得一本正经又离谱，给我 3 种思路。” |
+| 搞笑创作 | “把我点外卖失败的经历写成一次重大外交危机。” |
+| 分析笑点 | “这句话为什么好笑？帮我拆解预期、反转和节奏。” |
+| 练习幽默 | “你当我的幽默教练，出一道日常聊天题，我先回答，你再点评。” |
+| 连续笑梗 | “设计一个自称文学大师的虚构角色，让他的固定笑梗每次都能变出新花样。” |
+
+## 🚀 最快开始使用
+
+### 方法一：不安装，先体验
+
+1. 打开 [SKILL.md](./SKILL.md)，复制文件中的内容。
+2. 粘贴到你正在使用的 AI 对话里。
+3. 告诉 AI：“请遵循上述颖学 Skill 的规则，帮我写一段幽默内容。”
+
+这是快捷体验方式。完整功能涉及其他规则文件，推荐按下方步骤安装整个项目。
+
+### 方法二：Claude 网页版
+
+1. 点击 GitHub 页面右上角 **Code → Download ZIP**。
+2. 在支持自定义 Skills 的 Claude 中，进入相应的 Skills 设置入口，上传 ZIP。
+3. 新建对话，提出幽默创作、改写或练习请求即可。
+
+具体上传入口、可用性和权限以 Claude 当前界面为准。若上传要求 ZIP 根目录包含 `SKILL.md`，请先解压下载的仓库，再将文件夹内所有内容重新压缩，确保包的根目录直接是 `SKILL.md`、`references/`、`workflows/` 等。
+
+### 方法三：Claude Code
+
+将完整仓库复制到个人 Skill 目录：
 
 ```bash
-python scripts/validate_dataset.py evals/dataset.jsonl
-python scripts/validate_dataset.py examples/candidates.json
+mkdir -p ~/.claude/skills
+git clone https://github.com/ZondaR-K/yingxue-skill.git ~/.claude/skills/yingxue
+```
+
+之后在 Claude Code 中试试：
+
+```text
+使用 yingxue Skill，把“我减肥又失败了”写成一段一本正经的搞笑故事。
+```
+
+如果原目录已存在，请在目录里执行 `git pull`，不要重复克隆。Claude Code 会根据请求内容和 Skill 描述判断何时使用，也可在支持的客户端中显式调用。
+
+### 方法四：Codex
+
+将项目放到 Codex 的个人 Skills 目录：
+
+```bash
+mkdir -p ~/.agents/skills
+git clone https://github.com/ZondaR-K/yingxue-skill.git ~/.agents/skills/yingxue
+```
+
+然后在 Codex 中使用：
+
+```text
+$yingxue 帮我写三个轻松有趣的微信聊天回复，不要刻意抖机灵。
+```
+
+部分客户端需要重新打开会话以加载新 Skill。Windows 用户可以将 `~` 理解为当前用户主目录，并使用 PowerShell 或 Git Bash 安装 Git。
+
+## ✍️ 试试这些提示词
+
+**直接创作**
+
+> 帮我把今天上班迟到的经历写成一份严肃的新闻通稿，要有明确笑点，不要硬凑金句。
+
+**日常聊天**
+
+> 朋友说“你最近怎么越来越宅了”，帮我想 5 种自然又有趣的回答，别太油腻。
+
+**练习反转**
+
+> 给我出 5 道“先建立预期，再突然转弯”的练习题，我先写结尾，你再点评。
+
+**看懂别人的幽默**
+
+> 分析这句话为什么好笑，指出铺垫、意外转折和人物语气；最后告诉我可以借鉴什么。
+
+## 🧠 工作原理
+
+```text
+理解用户意图、受众和语境
+  → 选择幽默机制
+  → 生成不同角度的候选
+  → 检查自然度、逻辑和分寸
+  → 精简与修订
+  → 输出或陪练反馈
+```
+
+项目包含：
+
+- `SKILL.md`：技能入口和调用规则。
+- `references/`：幽默机制、风格、人设、Running Gag 与参考笔记。
+- `workflows/`：生成、改写、分析、陪练、批评修订。
+- `examples/`：原创示例与结构化候选。
+- `schemas/`：结构化数据规范。
+- `evals/`：评价规则、练习样例与评测设计。
+- `scripts/`、`tests/`：辅助校验工具、自动化测试。
+
+## 🔧 开发与测试
+
+创作时通常无需运行任何脚本。下面这些命令面向希望研究或改进项目的开发者，使用 Python 3.10+ 标准库：
+
+```bash
+python scripts/validate_dataset.py evals/dataset.jsonl examples/candidates.json
 python scripts/score_candidates.py examples/candidates.json
 python scripts/summarize_ratings.py evals/example-ratings.csv
 python -m unittest discover -s tests -v
 ```
 
-不要求安装第三方 Python 包。
+其中的分数与示例仅用于检查格式、展示评测方式；真实幽默效果仍需结合具体语境和人的反馈判断。
 
-## Architecture
+## 🤝 一起完善颖学
 
-```text
-User context
-  → audience + boundaries
-  → humor mechanism selection
-  → 3–5 divergent drafts
-  → semantic / rhythm / safety critique
-  → compact rewrite
-  → user feedback
-```
+如果你发现了特别好笑的表达、遇到明显不好笑的生成结果，或对幽默机制有新的理解，欢迎通过 Issue 和 Pull Request 一起改进。
 
-`SKILL.md` 是按需加载的入口；`references/` 用来解释机制，`workflows/` 定义行为流程；`schemas/` 约束记录结构；`scripts/` 仅执行数据校验、启发式文本分析及人工评分汇总。
-
-## Evaluation principles
-
-- **3-way comparison:** 直接生成 / 简短“幽默化”指令 / 本 Skill，使用相同任务、相同模型与采样设置。
-- **Blind rating:** 将不同来源候选随机排序、隐藏组别，邀请多位受试者分别评价好笑程度、自然度和边界恰当性。
-- **Report uncertainty:** 报告样本量、均值、方差、个体差异和失败案例。无真实实验结果时不做胜率宣称。
-- **Offline checks:** 字数、意外转折标志、末句长度等只用于诊断，不能充当真人觉得好笑的证据。
-
-## Structure
-
-- `references/`: comedy mechanisms, style, recurring characters, research notes
-- `workflows/`: generation, rewriting, analysis, coaching, critique
-- `schemas/`: JSON Schema contracts
-- `evals/`: evaluation rubric, prompts, example rating data
-- `examples/`: original fictional jokes and structured candidate examples
-- `scripts/`: validators and evaluation utilities
-- `tests/`: regression tests
-- `.github/workflows/`: standard-library test CI
-
-## Ethical use
-
-灵感来自公开文本中可普遍分析的幽默手法；不复制第三方作品，不冒用作者身份，不捏造真人经历。使用作品或角色名称时请尊重署名和适用法律。**样例数据为合成演示，绝不代表基准结果。**
+本项目为独立创作的幽默学习与创作工具；与曾颖本人不存在官方合作或授权关系。请勿将 AI 创作内容冒充真实人物的原话。
 
 ## License
 
-MIT for repository code and original prose. Third-party quotes, names, and trademarks are not included in the license grant.
+MIT License，详见 [LICENSE](./LICENSE)。
