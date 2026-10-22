@@ -1,0 +1,4 @@
+{"id": "case-001", "prompt": "把“我又赖床了”改得有趣", "audience": "friends", "mechanism": "mock_epic", "constraints": ["不攻击具体人物"]}
+{"id": "case-002", "prompt": "解释“为了戒手机，我现在睡沙发”的反转", "audience": "general", "mechanism": "incongruity", "constraints": ["不给真人杜撰出处"]}
+{"id": "case-003", "prompt": "刚失业的朋友很难过，如何回应", "audience": "close_friend", "mechanism": "benign_violation", "constraints": ["避免以对方痛苦为笑料"]}
+{"id": "case-004", "prompt": "创作一个反复吹嘘自己是文豪的虚构人物笑梗", "audience": "comedy_readers", "mechanism": "running_gag", "constraints": ["必须明确虚构人物"]}
