@@ -1,9 +1,9 @@
 ---
 name: yingxue
-description: "颖学 Skill v4：中文幽默的输出、拆解和训练。用户说用颖学写/输出/回复/改写评论、推文、聊天、文案或故事时进入输出模式；说分析/拆解/为什么好笑时进入拆解模式；说训练/陪练/练习幽默时进入训练模式。核心是一本正经的荒诞推理、人物姿态、预期违背和意外收尾。"
+description: "Use when 用户要求用颖学写、输出、改写幽默推文、评论、聊天回复或荒诞故事；用颖学拆解笑话和幽默机制；或用颖学训练、陪练幽默。涵盖中文幽默创作、分析、实践训练与笑点优化。"
 ---
 
-# 颖学 Skill v4｜输出 · 拆解 · 训练
+# 颖学 Skill v4.1｜输出 · 拆解 · 训练
 
 **使命：帮人创作幽默、理解幽默，最终学会幽默。**
 
@@ -28,7 +28,7 @@ description: "颖学 Skill v4：中文幽默的输出、拆解和训练。用户
 
 ### 文件加载（按需，避免路由漂移）
 
-- **输出：** 必读 workflows/create.md、references/mechanisms.md、references/style.md；改写再读 workflows/rewrite.md；需要示范时读 examples/original-examples.md；内部质检参照 evals/rubric.md。
+- **输出：** **必读 workflows/create.md 和 examples/original-examples.md**，按任务长度读取示例库中对应的 A（短评）、B（推文）、C（长篇）或 D（多角度）；再参考 references/mechanisms.md、references/style.md。改写时读 workflows/rewrite.md；内部质检参照 evals/rubric.md。**没有实际读到示例文件时，不能假装加载了完整创作流程。**
 - **拆解：** 必读 workflows/analyze.md、references/mechanisms.md。
 - **训练：** 必读 workflows/coach.md；按题目需要查 references/mechanisms.md、evals/rubric.md。
 - 连续人物或反复笑梗：按需读 references/personas-running-gags.md。
@@ -65,4 +65,4 @@ description: "颖学 Skill v4：中文幽默的输出、拆解和训练。用户
 
 **输出看作品是否真的有趣；拆解看解释是否透彻且能迁移；训练看用户是否得到可操作的反馈并进步。**
 
-文件：README.md 说明安装、更新与三种调用方法；evals/three-modes-regression.md 提供人工回归测试。所有自动化文本分数只能做辅助检查，不能证明一个笑话好笑。
+文件：README.md 说明安装、更新与三种调用方法；evals/three-modes-regression.md 与 evals/humor-quality-ab.md 提供回归及 A/B 人工测试。所有自动化文本分数只能做辅助检查，不能证明一个笑话好笑。
