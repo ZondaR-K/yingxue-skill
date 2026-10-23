@@ -1,6 +1,8 @@
-# 颖学 Skill v4
+# 颖学 Skill v4.1
 
 **让 AI 帮你输出幽默、拆解幽默、训练幽默。**
+
+**v4.1 更新：** 补充完整的[高质量原创示例库](./examples/original-examples.md)，包括一句话评论、推文、荒诞长故事、不同机制和失败对照。输出模式要求实际读取对应长度的示例，再创作作品，避免只按理论规则生成平淡文案。
 
 > 正经研究幽默，严肃对待胡说八道。
 
@@ -115,8 +117,9 @@ Codex 把路径换成 `~/.agents/skills/yingxue`。Windows PowerShell 使用个�
 - `workflows/analyze.md`：拆解预期、解释转弯与迁移方法。
 - `workflows/coach.md`：逐轮练习、反馈和递进。
 - `references/`：幽默机制、文风、人物及固定笑梗。
-- `examples/`：原创示例，理解机制，不照搬句式。
+- `examples/original-examples.md`：v4.1 优先加载的短评 / 推文 / 长篇原创正例与反例，理解质量标准，不照搬句式。
 - `evals/rubric.md`、`evals/three-modes-regression.md`：三模式人工评估与防退化测试。
+- `evals/humor-quality-ab.md`：对比无 Skill、v4 与 v4.1 的人工 A/B 测试设计，真实效果尚需采样与盲测。
 - `scripts/`、`tests/`：原有格式与校验工具。
 
 本地 Python 3.10+ 可运行：
@@ -127,6 +130,8 @@ python scripts/score_candidates.py examples/candidates.json
 python scripts/summarize_ratings.py evals/example-ratings.csv
 python -m unittest discover -s tests -v
 ```
+
+**仓库更新不等于你本地安装的 Skill 自动更新。** 已安装用户需要重新拉取或导入，并新开会话验证版本及示例文件已加载。
 
 代码测试通过不代表笑话一定好笑。比较效果时最好保持相同模型、温度、提示与上下文，使用人工匿名评分记录好笑程度、意外程度、自然度和使用意愿。
 
