@@ -4,3 +4,6 @@ __pycache__/
 .DS_Store
 .env
 .venv/
+
+# Private, user-supplied full-text research materials (not for public GitHub)
+references/private/
