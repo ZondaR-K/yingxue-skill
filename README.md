@@ -1,8 +1,8 @@
-# 颖学 Skill v4.1
+# 颖学 Skill v4.2
 
 **让 AI 帮你输出幽默、拆解幽默、训练幽默。**
 
-**v4.1 更新：** 补充完整的[高质量原创示例库](./examples/original-examples.md)，包括一句话评论、推文、荒诞长故事、不同机制和失败对照。输出模式要求实际读取对应长度的示例，再创作作品，避免只按理论规则生成平淡文案。
+**v4.2 核心修复：** 解决“以前写得好笑，后来 Skill 只有理论却写不出来”的几个已发现缺口：`SKILL.md` 内置完整创作引擎，保留最初 v1 人物欲望与荒诞推理；新增[六类原作幽默结构研究](./references/observed-humor-cases.md)，另有[用颖学介绍颖学的原创候选范例](./examples/hero-demo.md)。现有[原创示例库](./examples/original-examples.md)统一标注为**待用户验证的候选**，不能自称经测试的高质量语料。
 
 > 正经研究幽默，严肃对待胡说八道。
 
@@ -46,11 +46,29 @@
 
 颖学会先出**一道题**，例如“朋友问你怎么又迟到了”，让你从外交谈判的角度写一句话。你答完，它才指出有效的点、最需要改进的一点、最小修改和另一种示范，再继续下一轮。还可指定“训练聊天 / 推文 / 自嘲 / 荒诞推理”。
 
+## ✅ 先用三种方式试验
+
+```text
+/yingxue 输出：把今天又错过健身计划写成一个荒诞的短故事。
+/yingxue 拆解：为什么“一本正经地把小事写成大事”会好笑？
+/yingxue 训练：陪我练习一句话神转折，一题一题来。
+```
+
+上面是 Claude Code 等支持斜杠 Skill 客户端的形式。Codex 的相应前缀一般为 `$yingxue`；也可以用普通自然语言「使用颖学 Skill，输出……」，前提是客户端确实识别了已安装 Skill。
+
+**重点回归题：**
+
+```text
+使用颖学 Skill 的输出模式：请从一位虚构、对自己幽默才华极其自信的写作者视角，写一篇“我发现别人把我的幽默研究做成了 AI Skill”的自我介绍。让他和开发者争论才华、尊严、版权和商业利益；事件至少升级三次，最后回到一个具体而荒唐的现实后果。约 400 字，不要说明写作手法。
+```
+
+若效果仍然普通，把**实际成品、使用模型、客户端、加载到的文件列表**留下，和上一次版本在相同题目下比较。见[复现实验说明](./evals/humor-reproduction.md)。
+
 ## ⚡ 安装：把这段话复制给 Claude Code 或 Codex
 
 > 请帮我安装并验证这个 Agent Skill：https://github.com/ZondaR-K/yingxue-skill
 >
-> 阅读 README.md 和 SKILL.md，确定本机工具支持的个人 Skill 目录，获取完整仓库并保留 workflows/、references/、examples/、evals/ 等目录。若发现旧版本，先提示并更新现有安装，注意不覆盖用户修改。检查三个入口（输出、拆解、训练）引用的文件均存在，并告知安装后如何调用。
+> 阅读 README.md 和 SKILL.md，确定本机工具支持的个人 Skill 目录，获取完整仓库并保留 workflows/、references/、examples/、evals/ 等目录。若发现旧版本，先提示并更新现有安装，注意不覆盖用户修改。检查三个入口（输出、拆解、训练）引用的文件均存在，特别确认 references/observed-humor-cases.md 与 examples/hero-demo.md 已安装，并告知安装后如何调用。
 
 也可以手动安装：
 
@@ -117,9 +135,12 @@ Codex 把路径换成 `~/.agents/skills/yingxue`。Windows PowerShell 使用个�
 - `workflows/analyze.md`：拆解预期、解释转弯与迁移方法。
 - `workflows/coach.md`：逐轮练习、反馈和递进。
 - `references/`：幽默机制、文风、人物及固定笑梗。
-- `examples/original-examples.md`：v4.1 优先加载的短评 / 推文 / 长篇原创正例与反例，理解质量标准，不照搬句式。
+- `references/observed-humor-cases.md`：最初六则作品的机制性研究梗概（不复制原文）。
+- `examples/original-examples.md`：各篇幅的 AI 原创候选与反例，**尚未经真人验证**。
+- `examples/hero-demo.md`：“用颖学介绍颖学”的长篇原创复现参考稿（待盲测）。
 - `evals/rubric.md`、`evals/three-modes-regression.md`：三模式人工评估与防退化测试。
-- `evals/humor-quality-ab.md`：对比无 Skill、v4 与 v4.1 的人工 A/B 测试设计，真实效果尚需采样与盲测。
+- `evals/humor-quality-ab.md`、`evals/humor-reproduction.md`：对比无 Skill、旧 Skill、当前 Skill 的人工对照实验设计，**尚未完成真人盲测**。
+- `tests/test_yingxue_contract.py`：检测路由、文件依赖、示例与文档是否齐全的结构性回归测试。
 - `scripts/`、`tests/`：原有格式与校验工具。
 
 本地 Python 3.10+ 可运行：
@@ -132,6 +153,8 @@ python -m unittest discover -s tests -v
 ```
 
 **仓库更新不等于你本地安装的 Skill 自动更新。** 已安装用户需要重新拉取或导入，并新开会话验证版本及示例文件已加载。
+
+**自动化测试只检查文件、模式、关键规则，无法证明用户会笑。** 目前尚无可信的提升百分比；真正的幽默质量需要同条件人评与实际发布反馈。
 
 代码测试通过不代表笑话一定好笑。比较效果时最好保持相同模型、温度、提示与上下文，使用人工匿名评分记录好笑程度、意外程度、自然度和使用意愿。
 
