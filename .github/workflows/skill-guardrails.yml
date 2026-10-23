@@ -1,0 +1,16 @@
+name: Skill guardrails
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check Python
+        run: python3 --version
+      - name: Run skill structural tests
+        run: python3 -m unittest discover -s tests -v
