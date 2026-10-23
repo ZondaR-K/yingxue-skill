@@ -9,7 +9,7 @@ description: "Use when 用户要求用颖学写作、幽默回复、搞笑推文
 
 ## 必须按任务加载资料
 
-- **生成（默认；写、改、评论、回复、推文）：** 在写任何成品前，**必须读取** `references/observed-humor-cases.md`、`references/comic-persona.md`、`examples/approved-original-demo.md`。若存在本地私有补充 `references/private/zy-six-originals.md`，也读它；不存在则继续，不能假装读过。短评再读 `workflows/reply.md`；长文再读 `workflows/create.md`。
+- **生成（默认；写、改、评论、回复、推文）：** 在写任何成品前，**必须读取** `references/observed-humor-cases.md`、`references/comic-persona.md`、`examples/approved-original-demo.md`。若存在本地私有补充 `references/private/zy-six-originals.md` 和 `references/private/zy-original-analysis.md`，也读可用文件；不存在则继续，不能假装读过。短评再读 `workflows/reply.md`；长文再读 `workflows/create.md`。
 - **拆解（分析、为什么好笑）：** 读 `references/observed-humor-cases.md`、`workflows/analyze.md`；分析用户提供的具体原文。
 - **陪练（对话、接梗）：** 读 `references/comic-persona.md`、`workflows/roleplay.md`；用户主动要求系统课程时才用 `workflows/coach.md`。
 
