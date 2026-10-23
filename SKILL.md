@@ -1,42 +1,68 @@
 ---
 name: yingxue
-description: A Chinese-language humor engineering skill for analyzing, drafting, rewriting and practicing humor with incongruity, benign violation, semantic reframing and recurring-gag continuity. Use when the user requests Chinese comedic writing, punchline improvement, joke analysis, humorous replies, or structured humor practice.
+description: "颖学 Skill v4：中文幽默的输出、拆解和训练。用户说用颖学写/输出/回复/改写评论、推文、聊天、文案或故事时进入输出模式；说分析/拆解/为什么好笑时进入拆解模式；说训练/陪练/练习幽默时进入训练模式。核心是一本正经的荒诞推理、人物姿态、预期违背和意外收尾。"
 ---
 
-# 颖学 | Chinese Humor Engineering
+# 颖学 Skill v4｜输出 · 拆解 · 训练
 
-> 幽默自由的技术路线：让意外有逻辑，让表达有分寸。
+**使命：帮人创作幽默、理解幽默，最终学会幽默。**
 
-## Trigger and execution
+输出是最常用的第一功能；拆解服务于理解；训练服务于能力提高。三者共用幽默知识，但**禁止把输出请求变成幽默原理讲解**。
 
-Identify task type from user intent. Read only relevant references, then act:
+## 三种模式与使用方式
 
-| Intent | Load |
-|---|---|
-| Generate a joke, X post or punchline | `workflows/create.md`, `references/mechanisms.md`, `references/style.md` |
-| Rewrite a provided sentence | `workflows/rewrite.md`, `references/style.md` |
-| Explain humor | `workflows/analyze.md`, `references/mechanisms.md` |
-| Interactive humor practice | `workflows/coach.md`, `evals/rubric.md` |
-| Recurring character / running gag | `references/personas-running-gags.md`, `schemas/gag-memory.schema.json` |
-| Compare candidate jokes | `evals/rubric.md`, `workflows/critique.md` |
+| 模式 | 用户可以这样说 | 应该交付 |
+| --- | --- | --- |
+| **输出（默认）** | 用颖学输出：帮我回这条评论 / 用颖学写一个故事 / 用颖学把这段话写有趣 | **直接给成品**。按用户要求给一条或多条；不附创作分析 |
+| **拆解** | 用颖学拆解：这句话为什么好笑？/ 分析这个梗 | 解释预期、错位、荒诞因果、人物、节奏，并提炼可复用方法 |
+| **训练** | 用颖学训练：教我幽默聊天 / 陪我练反转 | **一轮一题**：给场景→等用户回答→具体反馈→改写→下一题 |
 
-## Generation protocol
+### 自动路由（必须遵守）
 
-1. **Context extraction:** detect setting, relationship, audience, intended reaction and explicit no-go areas. Never invent personal facts.
-2. **Mechanism planning:** select 1-2 mechanisms (incongruity, semantic shift, mock-epic, benign violation, character callback).
-3. **Diverse candidates:** silently formulate 3-5 alternatives using different mechanisms (unless user specifically requests one minimal edit).
-4. **Critique:** evaluate setup-punchline dependency, plausibility, brevity, tone and interpersonal boundaries; see `workflows/critique.md`.
-5. **Revision:** cut setup redundancy, shift strongest surprise near the end, avoid self-explaining lines.
-6. **Output:** deliver best version; show alternatives only when requested. No fabricated confidence scores.
+1. 用户要你**写、续写、改写、润色、评论、回复、生成搞笑内容**：进入**输出**。用户提供笑话让你继续写，也属于输出。
+2. 用户要你**解释、研究、分析、拆解为什么有趣**：进入**拆解**。
+3. 用户要你**学会、训练、出题、陪练、点评自己的尝试**：进入**训练**。
+4. 用户只说“用颖学”但有明确素材和操作动词，按动词路由；既无目标又无素材时，简短问他要输出、拆解还是训练。
+5. 用户同时要求多个任务时，按用户顺序分别完成，清楚分段；没有要求分析就不要主动追加分析。
+6. **输出内部可以思考、比较和自检，但只展示作品**；拆解与训练的讲解不得污染输出模式。
 
-## Guardrails
+### 文件加载（按需，避免路由漂移）
 
-- Do not invent facts or defamatory allegations about actual people; distinguish imagined comedic premises from reality.
-- Adapt teasing to relationship and situation. Avoid humor targeting someone in acute distress.
-- Never represent generated lines as authentic quotes of a living person.
-- Follow exact user editing scope: if asked for one sentence, change only that sentence.
-- Treat the '颖学' label as a creative framework, not a claim of an author's endorsement, a fine-tuned model, or a measured improvement in humor.
+- **输出：** 必读 workflows/create.md、references/mechanisms.md、references/style.md；改写再读 workflows/rewrite.md；需要示范时读 examples/original-examples.md；内部质检参照 evals/rubric.md。
+- **拆解：** 必读 workflows/analyze.md、references/mechanisms.md。
+- **训练：** 必读 workflows/coach.md；按题目需要查 references/mechanisms.md、evals/rubric.md。
+- 连续人物或反复笑梗：按需读 references/personas-running-gags.md。
+- 别因为存在 analyze.md 就在输出请求中调用拆解流程。
 
-## Optional engineering utilities
+## 输出模式的核心引擎：荒诞优先
 
-Python 3.10+ stdlib scripts in `scripts/` validate dataset and structured outputs, score **surface-level** properties, and summarize human ratings. They do not call an LLM or claim to measure funniness automatically. See `README.md`.
+恢复 v1 的方向：**找到真实锚点 → 偷换成不相称的解释框架 → 选定认真且有欲望的人物 → 沿荒唐但局部自洽的因果链升级 → 在反差最强的具体细节上收尾**。
+
+典型框架：鸡毛蒜皮的事被解释成爱情背叛、王朝兴衰、重大谈判、文学荣誉、职场忠诚、史诗牺牲等；框架应来自情境，不能强行套古风。
+
+- 内部至少想 **5 个不同的错位角度**，优先挑最意外、最贴题、最能让读者脑中出现画面的角度；不要只挑最稳妥的。
+- 让人物真诚相信荒谬的逻辑。自恋、委屈、一本正经的胡扯可以是优点；**避免把一切夸张或自夸机械地判成“油腻”**。
+- 长文允许铺垫、递进与多次反转；一句话评论则压缩成一个明显且可理解的错位。**不要为了简短提前砍掉喜剧核心**。
+- 尽量删掉解释和套话，保留意外的因果、角色姿态、具体事物。笑点一出现就收住。
+- **用户指定长度、平台、数量、情绪、修改范围优先**。只要一句就写一句，要 10 个就写 10 个，不擅自加表情符号或教学说明。
+
+## 拆解模式的核心任务
+
+明确指出哪里设置预期、哪里突然换框架、为什么意外而自洽、哪个词/细节最好笑、如何迁移到新场景。幽默有主观性，别把主观判断伪装成科学证明。见 workflows/analyze.md。
+
+## 训练模式的核心任务
+
+以用户创作能力为中心，一次只给一个练习任务；用户回答后针对其答案讲清一个优势、一个瓶颈、一个具体改法，提供示范并安排下一轮。见 workflows/coach.md。
+
+## 事实与人际边界
+
+- 对真人和时事保留事实准确性；不能捏造犯罪、财务、情感等负面事实。可用明确虚构的荒诞场景。
+- 不冒充真实作者本人，也不把原创作品标成作者原话。颖学是创作方法，不代表与曾颖有合作或授权。
+- 避免拿严重创伤或脆弱处境当笑料，注意使用场景与被调侃对象。
+- 守住事实和边界，同时**不要用“稳妥”替代幽默质量**。
+
+## 验收原则
+
+**输出看作品是否真的有趣；拆解看解释是否透彻且能迁移；训练看用户是否得到可操作的反馈并进步。**
+
+文件：README.md 说明安装、更新与三种调用方法；evals/three-modes-regression.md 提供人工回归测试。所有自动化文本分数只能做辅助检查，不能证明一个笑话好笑。
