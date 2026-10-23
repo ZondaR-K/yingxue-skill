@@ -16,7 +16,8 @@ v6.0 改造：以曾颖六篇作品中呈现的虚构喜剧叙述者为研究对
 | --- | --- |
 | **输出幽默**（默认） | `用颖学输出：帮我幽默地回复这条评论……` |
 | **拆解幽默** | `用颖学拆解：为什么这段话好笑？……` |
-| **训练幽默** | `用颖学训练：我想练习一句话反转。` |
+| **角色陪练** | `用颖学陪练：和我来回聊天接梗。` |
+| **技巧训练** | `用颖学训练：我想练习一句话反转。` |
 
 如果客户端支持显式 Skill 调用：
 
@@ -24,12 +25,14 @@ v6.0 改造：以曾颖六篇作品中呈现的虚构喜剧叙述者为研究对
 # Claude Code
 /yingxue 输出：帮我回复……
 /yingxue 拆解：这句话为什么好笑？
-/yingxue 训练：陪我练习聊天幽默
+/yingxue 陪练：和我来回聊天接梗
+/yingxue 训练：教我一句话反转
 
 # Codex
 $yingxue 输出：帮我回复……
 $yingxue 拆解：这句话为什么好笑？
-$yingxue 训练：陪我练习聊天幽默
+$yingxue 陪练：和我来回聊天接梗
+$yingxue 训练：教我一句话反转
 ```
 
 不同版本的客户端支持情况不同。一般也可以只描述任务，让支持自动识别的环境自行触发 Skill。**直接在普通 ChatGPT 对话中打字“用颖学”，不能证明已经加载了 GitHub 仓库。**
@@ -50,7 +53,7 @@ $yingxue 训练：陪我练习聊天幽默
 
 - **恢复 v1 写法的核心：** 小事被庄严解释、具体人物的偏执欲望、荒唐而自洽的连续推理、真事反噬。不是固定的六步模板。
 - **允许出乎意料地跑题：** 最初受认可的「用颖学介绍颖学」能从技术、文学绕到美貌和熟人的钱；笑点离开技术领域，但没离开人物的性格。新输出要保留这种意外，而不是总落在 GitHub/Fork/复制之类可预料的技术双关上。
-- **优先原始研究：** [六段作品机制与最初成功案例的复盘](references/observed-humor-cases.md)。仅有短摘、梗概和分析；**仓库不包含这六篇作品的完整原稿，也不声称存有最初成功作品的全文**。
+- **优先原始研究：** [六段作品机制与最初成功案例的复盘](references/observed-humor-cases.md)。仅有短摘、梗概和分析；**仓库不包含这六篇作品的完整原稿；最初得到用户认可的原创示范全文现已保存于 `examples/approved-original-demo.md`**。
 - **停止默认模仿 AI 候选：** `examples/original-examples.md` 与 `examples/hero-demo.md` 保留供历史复盘，**不作为自动加载的成功范文**。
 - **三模式照常保留：** 输出只交付作品；拆解专讲机制；训练先做题再反馈。
 
@@ -62,7 +65,7 @@ $yingxue 训练：陪我练习聊天幽默
 
 把以下内容发给能访问 GitHub 且支持本地文件操作的 Claude Code、Codex：
 
-> 请安装或更新 https://github.com/ZondaR-K/yingxue-skill 的完整 Agent Skill（不要只复制 SKILL.md）；先确认我的 Skill 安装目录。不要覆盖本地未提交的修改。检查 SKILL.md、workflows/create.md、references/observed-humor-cases.md、workflows/analyze.md、workflows/coach.md 均存在，告诉我如何显式调用。
+> 请安装或更新 https://github.com/ZondaR-K/yingxue-skill 的完整 Agent Skill（不要只复制 SKILL.md）；先确认我的 Skill 安装目录。不要覆盖本地未提交的修改。检查 SKILL.md、references/comic-persona.md、examples/approved-original-demo.md、workflows/create.md、workflows/roleplay.md、workflows/analyze.md、workflows/coach.md 均存在，告诉我如何显式调用。
 
 手动安装：
 
